@@ -1,4 +1,9 @@
 module UserHelper
+  def create_random_users
+    10.times { create_customer }
+    10.times { create_support_agent }
+  end
+
   def create_customer
     create_entity
       .use_repo(User)

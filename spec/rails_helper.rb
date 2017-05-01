@@ -7,17 +7,18 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'simplecov'
 SimpleCov.start 'rails' do
-  add_filter '/commands/'
   add_filter '/lib/'
   add_filter '/jobs/'
   add_filter '/mailers/'
   add_filter '/channels/'
+  add_group 'Serializers', '/serializers/'
 end
 
 Faker::Config.locale = 'en-US'
 
 Dir[Rails.root.join('spec', 'models', 'contexts', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'models', 'examples', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec', 'controllers', 'api', 'v1', 'contexts', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'supports', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'shared_examples', '**', '*.rb')].each { |f| require f }
 # Checks for pending migration and applies them before tests are run.
