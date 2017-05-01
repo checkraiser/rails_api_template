@@ -1,5 +1,5 @@
 module Injector
-  def self.inject(klass, *modules, &block)
+  def self.provide(klass, *modules, &block)
     modules.each do |mod|
       klass.include mod
     end
@@ -8,6 +8,12 @@ module Injector
       mod.instance_methods.each do |meth|
         klass.send(:undef_method, meth)
       end
+    end
+  end
+
+  def self.inject(klass, *modules)
+    modules.each do |mod|
+      klass.include mod
     end
   end
 end
