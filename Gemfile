@@ -20,7 +20,7 @@ gem 'puma', '~> 3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'hamster'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 gem 'simple_command'
@@ -29,6 +29,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'faker'
   gem 'rdoc'
+  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
