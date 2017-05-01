@@ -1,5 +1,21 @@
 require 'rails_helper'
 
+##
+# This class represents a test command
+class TestCommand < ApplicationCommand
+  prepend SimpleCommand
+
+  def initialize(input)
+    @input = input
+  end
+
+  def call
+    @input + 1
+  rescue => e
+    errors.add self.class.name.downcase.to_sym, e.message
+  end
+end
+
 describe TestCommand, '#call' do
   context 'returns success' do
     subject { described_class.call(3) }
@@ -36,9 +52,10 @@ describe TestCommand, '#call' do
 
   context 'returns exception errors' do
     subject { described_class.call(3).bind(Object.new) }
+    let(:error_message) { "undefined method `call'" }
 
-    it 'calls' do
-      p subject.result
+    it 'contains error_message' do
+      expect(subject.errors[:testcommand][0]).to include(error_message)
     end
   end
 end
