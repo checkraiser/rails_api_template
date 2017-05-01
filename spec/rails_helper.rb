@@ -2,13 +2,14 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
 require 'simplecov'
-SimpleCov.start 'rails' do 
-  add_group "Commands", "app/commands"
+SimpleCov.start 'rails' do
+  add_group 'Commands', 'app/commands'
 end
+Faker::Config.locale = 'en-US'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -65,6 +66,13 @@ RSpec.configure do |config|
 
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
+  config.around(:each, freeze: true) do |example|
+    time = example.metadata.fetch(:freeze)
+    Timecop.freeze(time.eql?(true) ? Date.current : time) do
       example.run
     end
   end

@@ -1,7 +1,6 @@
 ##
 # This class represents a base command for other commands to inherit
 class ApplicationCommand
-
   ##
   # This method allows binding result to other command to be called
 
@@ -17,9 +16,9 @@ class ApplicationCommand
   def transaction(command)
     ApplicationRecord.transaction(requires_new: true) do
       if success?
-          cmd = command.call result
-          raise ActiveRecord::Rollback unless cmd.success?
-          cmd
+        cmd = command.call result
+        raise ActiveRecord::Rollback unless cmd.success?
+        cmd
       else
         self
       end

@@ -1,0 +1,39 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  Include:
+    - Rakefile
+    - Gemfile
+    - Guardfile
+    - config.ru
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'db/**/*'
+    - 'vendor/bundle/**/*'
+    - 'config/puma.rb'
+    - 'config/spring'
+
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - 'config/environments/*'
+    - 'config/application.rb'
+    - 'app/models/**/*'
+    - 'app/mailers/**/*'
+    - 'app/controllers/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 130
+
+Metrics/AbcSize:
+  Max: 16
