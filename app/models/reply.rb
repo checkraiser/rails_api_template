@@ -1,4 +1,4 @@
 class Reply < ApplicationRecord
-  include Replies::Association, 
-          Replies::Validation
+  include Replies::Association
+  include Replies::Validation
 end

@@ -1,9 +1,11 @@
+##
+# Support code with input parameters
 module WithParams
   extend ActiveSupport::Concern
 
   class_methods do
     def use_params(params)
-      self.new.tap do |tmp|
+      new.tap do |tmp|
         tmp.use_params(params)
       end
     end
@@ -13,9 +15,9 @@ module WithParams
     @_params = params
     self
   end
-  
+
   private
-  
+
   def params
     @_params
   end

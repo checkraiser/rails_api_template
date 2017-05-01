@@ -1,9 +1,11 @@
+##
+# Support for Repository
 module WithRepo
   extend ActiveSupport::Concern
 
   class_methods do
     def use_repo(repo)
-      self.new.tap do |tmp|
+      new.tap do |tmp|
         tmp.use_repo(repo)
       end
     end
@@ -13,9 +15,9 @@ module WithRepo
     @_repo = repo
     self
   end
-  
+
   private
-  
+
   def repo
     @_repo
   end

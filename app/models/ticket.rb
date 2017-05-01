@@ -1,4 +1,4 @@
 class Ticket < ApplicationRecord
-  include Tickets::Association, 
-          Tickets::Validation
+  include Tickets::Association
+  include Tickets::Validation
 end

@@ -1,3 +1,5 @@
+##
+# Support dependency injection or Ruby class
 module Injector
   def self.provide(klass, *modules, &block)
     modules.each do |mod|

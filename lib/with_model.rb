@@ -1,9 +1,11 @@
+##
+# Support command using model
 module WithModel
   extend ActiveSupport::Concern
 
   class_methods do
     def use_model(model)
-      self.new.tap do |tmp|
+      new.tap do |tmp|
         tmp.use_model(model)
       end
     end
@@ -13,9 +15,9 @@ module WithModel
     @_model = model
     self
   end
-  
+
   private
-  
+
   def model
     @_model
   end

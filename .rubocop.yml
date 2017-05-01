@@ -17,6 +17,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'config/puma.rb'
     - 'config/spring'
+    - 'spec/supports/**/*'
 
 Style/Documentation:
   Enabled: true

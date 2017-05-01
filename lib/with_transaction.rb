@@ -1,3 +1,5 @@
+##
+# Handle command chaining with transaction support
 module WithTransaction
   extend ActiveSupport::Concern
 
@@ -5,9 +7,9 @@ module WithTransaction
     include WithRepo
   end
 
-  def with_transaction(&block)
+  def with_transaction
     ApplicationRecord.transaction do
-      block.call
+      yield if block_given?
     end
     self
   end
@@ -23,31 +25,19 @@ module WithTransaction
   private
 
   def bind_with_transaction(command)
-    if success?
-      cmd = command.call
-      if cmd.success?
-        return cmd
-      else
-        add_errors cmd
-        rollback
-      end
-    else
-      rollback
-    end
+    rollback unless success?
+    cmd = command.call
+    return cmd if cmd.success?
+    add_errors cmd
+    rollback
   end
 
   def then_with_transaction(command)
-    if success?
-      cmd = command.call
-      if cmd.success?
-        return self
-      else
-        add_errors cmd
-        rollback
-      end
-    else
-      rollback
-    end
+    rollback unless success?
+    cmd = command.call
+    return self if cmd.success?
+    add_errors cmd
+    rollback
   end
 
   def rollback
