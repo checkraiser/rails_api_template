@@ -31,6 +31,7 @@ group :development, :test do
   gem 'rdoc'
   gem 'rspec-rails', '~> 3.5'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec'
   gem 'timecop'
 end
 

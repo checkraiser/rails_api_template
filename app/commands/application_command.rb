@@ -20,13 +20,10 @@ class ApplicationCommand
 
   def transaction(command)
     ApplicationRecord.transaction(requires_new: true) do
-      if success?
-        cmd = command.call result
-        raise ActiveRecord::Rollback unless cmd.success?
-        cmd
-      else
-        self
-      end
+      return self unless success?
+      cmd = command.call result
+      return cmd if cmd.success?
+      raise ActiveRecord::Rollback
     end
   rescue => e
     errors.add self.class.name.downcase.to_sym, e.message
@@ -34,7 +31,7 @@ class ApplicationCommand
   end
 
   ##
-  # This method allows binding result to other command to be called
+  # This method allows ignore result and let other command to be called
 
   def then(command)
     return command.call if success?

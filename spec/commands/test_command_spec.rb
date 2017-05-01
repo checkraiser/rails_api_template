@@ -16,46 +16,15 @@ class TestCommand < ApplicationCommand
   end
 end
 
-describe TestCommand, '#call' do
-  context 'returns success' do
-    subject { described_class.call(3) }
+describe TestCommand do
+  let(:success_command) { described_class.call(3) }
+  let(:failure_command) { described_class.call('3') }
 
-    it 'calls' do
-      expect(subject.result).to eql(4)
-    end
-
-    it 'binds' do
-      expect(subject.bind(described_class).result).to eql(5)
-    end
-
-    it 'transaction' do
-      expect(subject.transaction(described_class).result).to eql(5)
-    end
-  end
-
-  context 'returns errors' do
-    subject { described_class.call('3') }
-    let(:error_message) { { testcommand: ['no implicit conversion of Integer into String'] } }
-
-    it '#calls' do
-      expect(subject.errors).to eql error_message
-    end
-
-    it '#binds' do
-      expect(subject.bind(described_class).errors).to eql error_message
-    end
-
-    it '#transaction' do
-      expect(subject.transaction(described_class).errors).to eql error_message
-    end
-  end
-
-  context 'returns exception errors' do
-    subject { described_class.call(3).bind(Object.new) }
-    let(:error_message) { "undefined method `call'" }
-
-    it 'contains error_message' do
-      expect(subject.errors[:testcommand][0]).to include(error_message)
-    end
-  end
+  it_behaves_like('a success command') { subject { success_command } }
+  it_behaves_like('a success command') { subject { success_command } }
+  it_behaves_like('a success command') { subject { success_command.bind(described_class) } }
+  it_behaves_like('a success command') { subject { success_command.transaction(described_class) } }
+  it_behaves_like('a failure command') { subject { failure_command } }
+  it_behaves_like('a failure command') { subject { failure_command.bind(described_class) } }
+  it_behaves_like('a failure command') { subject { failure_command.transaction(described_class) } }
 end
