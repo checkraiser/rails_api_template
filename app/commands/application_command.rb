@@ -1,11 +1,16 @@
 ##
 # This class represents a base command for other commands to inherit
 class ApplicationCommand
+  prepend SimpleCommand
+
   ##
   # This method allows binding result to other command to be called
 
   def bind(command)
     return command.call(result) if success?
+    self
+  rescue => e
+    errors.add self.class.name.downcase.to_sym, e.message
     self
   end
 
@@ -23,5 +28,19 @@ class ApplicationCommand
         self
       end
     end
+  rescue => e
+    errors.add self.class.name.downcase.to_sym, e.message
+    self
+  end
+
+  ##
+  # This method allows binding result to other command to be called
+
+  def then(command)
+    return command.call if success?
+    self
+  rescue => e
+    errors.add self.class.name.downcase.to_sym, e.message
+    self
   end
 end
