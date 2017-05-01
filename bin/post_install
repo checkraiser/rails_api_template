@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo 'Generating documentation'
+bundle exec rdoc
+echo 'Generating brakeman reports'
+bundle exec brakeman -o reports/security.html
+echo 'Generating best_practices reports'
+bundle exec rails_best_practices -f html --output-file reports/best_practices.html
+echo 'Generating rubocop reports'
+bundle exec rubocop --out reports/static.txt
