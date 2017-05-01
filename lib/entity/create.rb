@@ -7,5 +7,7 @@ class Entity::Create
     return entity if entity.save
     add_errors entity
     nil
+  rescue => e
+    handle_exception e
   end
 end

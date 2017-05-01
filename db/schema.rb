@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501074659) do
+ActiveRecord::Schema.define(version: 20170501175802) do
+
+  create_table "replies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "ticket_id"
+    t.integer  "user_id"
+    t.text     "content",    limit: 65535, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["ticket_id"], name: "index_replies_on_ticket_id", using: :btree
+    t.index ["user_id"], name: "index_replies_on_user_id", using: :btree
+  end
+
+  create_table "tickets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title",                                null: false
+    t.text     "body",       limit: 65535,             null: false
+    t.integer  "status",                   default: 0, null: false
+    t.integer  "user_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["status"], name: "index_tickets_on_status", using: :btree
+    t.index ["user_id"], name: "index_tickets_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                      null: false
@@ -23,4 +44,7 @@ ActiveRecord::Schema.define(version: 20170501074659) do
     t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
+  add_foreign_key "replies", "tickets"
+  add_foreign_key "replies", "users"
+  add_foreign_key "tickets", "users"
 end

@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-  include User::Validation
+  include Users::Association, 
+          Users::Validation
 end

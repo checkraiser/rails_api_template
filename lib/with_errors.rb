@@ -26,4 +26,9 @@ module WithErrors
       end
     end
   end
+
+  def handle_exception e
+    errors.add self.class.name.downcase.to_sym, e.message
+    self
+  end
 end

@@ -1,4 +1,4 @@
-module User::Validation
+module Users::Validation
   extend ActiveSupport::Concern
 
   included do
