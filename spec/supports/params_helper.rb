@@ -1,5 +1,5 @@
 module ParamsHelper
   def create_params_with(params)
-    HashBuilder.build params
+    Hamster::Hash[params]
   end
 end

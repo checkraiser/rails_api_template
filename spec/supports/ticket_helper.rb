@@ -1,15 +1,17 @@
 module TicketHelper
-  def create_ticket(user)
+  def create_ticket_for(user)
     create_entity
       .use_repo(Ticket)
-      .use_params(ticket_params(user))
-      .call
+      .use_params(
+        create_ticket_params_for(user)
+          .to_h
+      ).call
       .result
   end
 
-  def ticket_params(user)
-    create_params_with title: 'Sample ticket', 
-                       body: 'Sample body', 
+  def create_ticket_params_for(user)
+    create_params_with title: random_ticket_title, 
+                       body: random_ticket_body, 
                        user: user
   end
 end

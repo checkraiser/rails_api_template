@@ -22,4 +22,8 @@ module FakerHelper
   def random_reply_content
     Faker::Lorem.paragraph
   end  
+
+  def random_password
+    Faker::Internet.password
+  end
 end

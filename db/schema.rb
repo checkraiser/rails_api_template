@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501175802) do
+ActiveRecord::Schema.define(version: 20170501193030) do
 
   create_table "replies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "ticket_id"
@@ -34,14 +34,17 @@ ActiveRecord::Schema.define(version: 20170501175802) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "email",                      null: false
-    t.string   "first_name",                 null: false
-    t.string   "last_name",                  null: false
-    t.boolean  "admin",      default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "email",                           null: false
+    t.string   "first_name",                      null: false
+    t.string   "last_name",                       null: false
+    t.boolean  "admin",           default: false, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "role",            default: 0,     null: false
+    t.string   "password_digest",                 null: false
     t.index ["admin"], name: "index_users_on_admin", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["role"], name: "index_users_on_role", using: :btree
   end
 
   add_foreign_key "replies", "tickets"
