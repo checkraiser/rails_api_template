@@ -5,34 +5,15 @@ module UserHelper
   end
 
   def create_customer
-    create_entity
-      .use_repo(User)
-      .use_params(
-        create_customer_params
-          .to_h
-      ).call
-      .result
+    Entity::Create.use(repo: User).use(params: create_customer_params.to_h).run.result
   end
 
   def create_support_agent
-    create_entity
-      .use_repo(User)
-      .use_params(
-        create_support_agent_params
-        .to_h
-      ).call
-      .result
+    Entity::Create.use(repo: User).use(params: create_support_agent_params.to_h).run.result
   end
 
   def create_admin
-    create_entity
-      .use_repo(User)
-      .use_params(
-        create_admin_params
-        .to_h
-      )
-      .call
-      .result
+    Entity::Create.use(repo: User).use(params: create_admin_params.to_h).run.result
   end
 
   def create_customer_params

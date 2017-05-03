@@ -1,6 +1,5 @@
-Injector.inject(
-  Entity::Create, WithCommand, WithErrors, WithRepo, WithTransaction, WithParams
-)
-Injector.inject(
-  Entity::Update, WithCommand, WithErrors, WithModel, WithTransaction, WithParams
-)
+Entity::Create.include(Command)
+Token::Generate.include(Command)
+CreateCustomer = Entity::Create.use(repo: User)
+CreateSupportAgent = Entity::Create.use(repo: User)
+CreateAdmin = Entity::Create.use(repo: User)

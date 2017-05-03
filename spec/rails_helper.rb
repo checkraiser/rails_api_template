@@ -16,6 +16,7 @@ end
 
 Faker::Config.locale = 'en-US'
 
+Dir[Rails.root.join('spec', 'integration', 'contexts', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'models', 'contexts', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'models', 'examples', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'controllers', 'api', 'v1', 'contexts', '**', '*.rb')].each { |f| require f }
@@ -25,6 +26,14 @@ Dir[Rails.root.join('spec', 'shared_examples', '**', '*.rb')].each { |f| require
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :active_record
+    with.library :rails
+  end
+end
+
 RSpec.configure do |config|
   config.include ParamsHelper
   config.include FakerHelper
@@ -32,6 +41,7 @@ RSpec.configure do |config|
   config.include UserHelper
   config.include TicketHelper
   config.include ReplyHelper
+  config.include CommandHelper
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

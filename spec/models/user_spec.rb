@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  include_context 'with command' do
-    include_context 'creates customer'
-  end
+  it { should validate_presence_of(:email) }
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+  it { should have_secure_password }
+
+  it { should have_many(:tickets) }
+  it { should have_many(:replies) }
 end

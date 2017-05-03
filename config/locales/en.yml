@@ -25,3 +25,7 @@ en:
     attributes:
       email:
         blank: can't be blank
+  activerecord:
+    errors:
+      messages:
+        restrict_to: "is not one of the allowed options (%{allowed_options})"        

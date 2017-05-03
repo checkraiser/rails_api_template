@@ -74,8 +74,10 @@ end
 group :test do
   # Test JSON API
   gem 'airborne'
+  gem 'codeclimate-test-reporter'
   # Clean database for each test case
   gem 'database_cleaner', github: 'DatabaseCleaner/database_cleaner'
   # Test coverage
   gem 'simplecov', require: false
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end

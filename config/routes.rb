@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/', to: 'home#index'
-      resources :users, only: %i[index]
+      resources :customers, only: %i[index] do
+        collection do
+          post :register
+        end
+      end
     end
   end
 end

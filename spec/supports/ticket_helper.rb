@@ -1,12 +1,6 @@
 module TicketHelper
   def create_ticket_for(user)
-    create_entity
-      .use_repo(Ticket)
-      .use_params(
-        create_ticket_params_for(user)
-          .to_h
-      ).call
-      .result
+    create_entity.use(repo: Ticket, params: create_ticket_params_for(user).to_h).run.result
   end
 
   def create_ticket_params_for(user)

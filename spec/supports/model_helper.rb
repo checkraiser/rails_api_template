@@ -4,6 +4,10 @@ module ModelHelper
   end
 
   def create_command_for(repo, params)
-    create_entity.use_repo(repo).use_params(params)
+    Entity::Create.use(repo: repo, params: params)
+  end
+
+  def token_generator
+    Token::Generate.use(repo: User, base64_generator: SecureRandom)
   end
 end
